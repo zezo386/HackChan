@@ -1,0 +1,98 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar {
+    max-height: 100px;
+    display: flex;
+    flex-direction: row;
+    background: rgb(236, 55, 80);
+    position: relative;
+    z-index: 2;
+}
+
+.nav-links {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    gap: 50px;
+    margin: 30px;
+    align-items: center;
+}
+
+.nav-link a{
+    text-decoration: none;
+    color: white;
+    font-size: 28px;
+    opacity: 1;
+    transition: opacity 0.15s;
+    font-weight: 500;
+}
+
+.nav-link a:hover{
+    opacity: 0.6;
+    transition: opacity 0.15s;
+}
+
+.nav-link.active a {
+    font-weight: 800;
+}
+
+.container {
+    background: black;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100vw;
+    height: calc(100vh - 100px);
+    align-items: center;
+    justify-content: top;
+    margin:auto;
+    position: relative;
+    overflow: hidden;
+    padding-top: 50px;
+}
+
+.post-div {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    align-items: center;
+    background: rgb(241, 242, 245);
+    border: 1px solid rgba(0,0,0,0.5);
+    padding: 10px 0;
+    padding-right: 10px;
+    border-radius: 20px;
+}
+
+.post-div textarea {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding-left: 24px;
+    background: transparent;
+    font-size: 20px;
+    resize: horizontal;
+    max-width: 300px;
+    min-height: 50px;
+    max-height: 100px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.post-div button {
+    background: rgb(23, 23, 29);
+    color: white;
+    border: medium;
+    border-radius: 9999px;
+    padding: 10px;
+    cursor: pointer;
+}
