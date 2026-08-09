@@ -50,7 +50,7 @@ async function get_posts(){
             for (let post of data){
                 post_div = document.createElement("div");
                 post_div.className = 'post';
-                let username = ip_to_username(post.ip)
+                let username = ip_to_username(post.ip);
                 post_div.innerHTML = `
                 <h2 class='username'>${username}</h2>
                 <p class='post-message'>${post.message}</p>
@@ -81,7 +81,7 @@ async function upvote(id){
 
 async function downvote(id){
     try {
-        let ip = await get_ip()
+        let ip = await get_ip();
 
         let request = await fetch(API_URL+`toggle_downvote/?id=${id}&ip=${ip}`);
     }
@@ -117,7 +117,7 @@ async function new_post(){
     }
 }
 
-document.addEventListener("DOMContentLoaded", get_posts)
+document.addEventListener("DOMContentLoaded", get_posts);
 
-document.getElementById("post-btn").addEventListener("click",new_post)
+document.getElementById("post-btn").addEventListener("click",new_post);
 
