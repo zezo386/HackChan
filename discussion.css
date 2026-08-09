@@ -52,16 +52,15 @@ body {
     flex-direction: column;
     gap: 10px;
     width: 100vw;
-    height: calc(100vh - 100px);
+    height: 100%;
     align-items: center;
     justify-content: top;
     margin:auto;
     position: relative;
-    overflow: hidden;
     padding-top: 50px;
 }
 
-.post-div {
+.post-form {
     display: flex;
     flex-direction: row;
     position: relative;
@@ -73,7 +72,7 @@ body {
     border-radius: 20px;
 }
 
-.post-div textarea {
+.post-form textarea {
     flex: 1;
     border: none;
     outline: none;
@@ -82,17 +81,54 @@ body {
     font-size: 20px;
     resize: horizontal;
     max-width: 300px;
+    min-width: 200px;
     min-height: 50px;
     max-height: 100px;
     overflow-y: auto;
     padding-right: 10px;
 }
 
-.post-div button {
+.post-form button {
     background: rgb(23, 23, 29);
     color: white;
     border: medium;
     border-radius: 9999px;
     padding: 10px;
     cursor: pointer;
+}
+
+.posts{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.post {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background: white;
+    margin: 10px;
+    border-radius: 20px;
+    padding-left: 25px;
+    padding-right: 10px;
+    padding-bottom: 20px;
+    padding-top: 5px;
+    transition: transform 0.3s;
+    max-width: 300px;
+}
+
+.post:hover {
+    transform: translateY(-5%);
+    transition: transform 0.3s;
+}
+
+.username {
+    font-size: 22px;
+    padding-left: 10%;
+    transform: translateX(-15%);
+}
+
+.pose-message {
+    font-size: 12px;
 }

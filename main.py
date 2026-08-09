@@ -1,8 +1,18 @@
 import fastapi
 import sqlite3 as sq
+import fastapi.middleware
+import fastapi.middleware.cors
 from pydantic import BaseModel
 
 app = fastapi.FastAPI()
+
+app.add_middleware(
+    fastapi.middleware.cors.CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class Post(BaseModel):
     ip: str
@@ -10,6 +20,7 @@ class Post(BaseModel):
 
 @app.post("/add_post/")
 def add_post(post: Post):
+    print(post)
     conn = sq.connect("database.db")
     cursor = conn.cursor()
     try:
@@ -29,7 +40,7 @@ def select_post():
     conn.row_factory = sq.Row
     cursor = conn.cursor()
     try:
-        cursor.execute("SELECT * FROM posts")
+        cursor.execute("SELECT * FROM posts ORDER BY id DESC")
         result = [dict(row) for row in cursor.fetchall()]
         return result
     except Exception as e:
