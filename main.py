@@ -72,6 +72,17 @@ def toggle_upvote(ip: str, id: int):
         else:
             result = ip+","
         cursor.execute("UPDATE posts SET upvoters=? WHERE id=?",(result,id))
+
+        cursor.execute("SELECT downvoters FROM posts WHERE id=?",(id,))
+        post = cursor.fetchone()[0]
+        if post:
+            if ip in post:
+                result = ""
+                for downvote in post.split(","):
+                    if downvote == ip or not downvote:
+                        continue
+                    result+=downvote+","
+                cursor.execute("UPDATE posts SET downvoters = ? WHERE id = ?",(result,id))
         conn.commit()
     except Exception as e:
         conn.rollback()
@@ -99,6 +110,17 @@ def toggle_downvote(ip: str, id: int):
         else:
             result = ip+","
         cursor.execute("UPDATE posts SET downvoters=? WHERE id=?",(result,id))
+
+        cursor.execute("SELECT upvoters FROM posts WHERE id=?",(id,))
+        post = cursor.fetchone()[0]
+        if post:
+            if ip in post:
+                result = ""
+                for upvote in post.split(","):
+                    if ip == upvote or not upvote:
+                        continue
+                    result += upvote+","
+                cursor.execute("UPDATE posts SET upvoters=? WHERE id=?",(result,id))
         conn.commit()
     except Exception as e:
         conn.rollback()
