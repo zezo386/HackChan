@@ -1,4 +1,4 @@
-const API_URL = "http://127.0.0.1:8000/";
+const API_URL = "https://hackchan3-production.up.railway.app/";
 
 async function get_ip(){
     try {
