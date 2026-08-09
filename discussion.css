@@ -52,6 +52,7 @@ body {
     flex-direction: column;
     gap: 10px;
     width: 100vw;
+    min-height: calc(100vh - 100px);
     height: 100%;
     align-items: center;
     justify-content: top;
@@ -129,6 +130,21 @@ body {
     transform: translateX(-15%);
 }
 
-.pose-message {
-    font-size: 12px;
+.post-message {
+    font-size: 16px;
+}
+
+.votes {
+    display: flex;
+    flex-direction: row;
+    justify-self: center;
+    gap: 15px;
+}
+
+.upvotes, .downvotes{
+    background: transparent;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    cursor: pointer;
 }

@@ -42,6 +42,9 @@ def select_post():
     try:
         cursor.execute("SELECT * FROM posts ORDER BY id DESC")
         result = [dict(row) for row in cursor.fetchall()]
+        for row in result:
+            row["upvotes"] = max(len(row["upvoters"].split(","))-1,0)
+            row["downvotes"] = max(len(row["downvoters"].split(","))-1,0)
         return result
     except Exception as e:
         conn.rollback()
@@ -49,5 +52,58 @@ def select_post():
         raise fastapi.HTTPException(500,e)
     finally:
         conn.close()
-    
+
+@app.get("/toggle_upvote/")
+def toggle_upvote(ip: str, id: int):
+    conn = sq.connect("database.db")
+    cursor = conn.cursor()
+    try:
+        cursor.execute("SELECT upvoters FROM posts WHERE id=?",(id,))
+        post = cursor.fetchone()[0]
+        if post:
+            result = ""
+            if ip in post:
+                for upvote in post.split(","):
+                    if upvote == ip or not upvote:
+                        continue
+                    result+=upvote+","
+            else:
+                result = post+","+ip
+        else:
+            result = ip+","
+        cursor.execute("UPDATE posts SET upvoters=? WHERE id=?",(result,id))
+        conn.commit()
+    except Exception as e:
+        conn.rollback()
+        print(e)
+        raise fastapi.HTTPException(500,e)
+    finally:
+        conn.close()
+
+@app.get("/toggle_downvote/")
+def toggle_downvote(ip: str, id: int):
+    conn = sq.connect("database.db")
+    cursor = conn.cursor()
+    try:
+        cursor.execute("SELECT downvoters FROM posts WHERE id=?",(id,))
+        post = cursor.fetchone()[0]
+        if post:
+            if ip in post:
+                result = ""
+                for upvote in post.split(","):
+                    if ip == upvote or not upvote:
+                        continue
+                    result += upvote+","
+            else:
+                result = post+","+ip
+        else:
+            result = ip+","
+        cursor.execute("UPDATE posts SET downvoters=? WHERE id=?",(result,id))
+        conn.commit()
+    except Exception as e:
+        conn.rollback()
+        print(e)
+        raise fastapi.HTTPException(500,e)
+    finally:
+        conn.close()
     

@@ -54,6 +54,10 @@ async function get_posts(){
                 post_div.innerHTML = `
                 <h2 class='username'>${username}</h2>
                 <p class='post-message'>${post.message}</p>
+                <div class='votes'>
+                <button class='upvotes' onclick='upvote(${post.id});'><span>${post.upvotes}</span><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="black"><path d="M720-120H280v-520l280-280 50 50q7 7 11.5 19t4.5 23v14l-44 174h258q32 0 56 24t24 56v80q0 7-2 15t-4 15L794-168q-9 20-30 34t-44 14Zm-360-80h360l120-280v-80H480l54-220-174 174v406Zm0-406v406-406Zm-80-34v80H160v360h120v80H80v-520h200Z"/></svg></button>
+                <button class='downvotes' onclick='downvote(${post.id});'><span>${post.downvotes}</span><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="black"><path d="M240-840h440v520L400-40l-50-50q-7-7-11.5-19t-4.5-23v-14l44-174H120q-32 0-56-24t-24-56v-80q0-7 2-15t4-15l120-282q9-20 30-34t44-14Zm360 80H240L120-480v80h360l-54 220 174-174v-406Zm0 406v-406 406Zm80 34v-80h120v-360H680v-80h200v520H680Z"/></svg></button>
+                </div>
                 `;
                 document.getElementById("posts").appendChild(post_div);
             }
@@ -64,10 +68,33 @@ async function get_posts(){
     }
 }
 
+async function upvote(id){
+    try{
+        let ip = await get_ip();
+
+        let request = await fetch(API_URL+`toggle_upvote/?id=${id}&ip=${ip}`);
+    }
+    catch(e){
+        console.log(e);
+    }
+}
+
+async function downvote(id){
+    try {
+        let ip = await get_ip()
+
+        let request = await fetch(API_URL+`toggle_downvote/?id=${id}&ip=${ip}`);
+    }
+    catch(e){
+        console.log(e);
+    }
+}
+
 async function new_post(){
     try {
         let ip = await get_ip();
         let message = document.getElementById("post-message").value;
+        document.getElementById("post-message").value = "";
         body = {
             "ip": ip,
             "message": message
