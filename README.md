@@ -40,7 +40,7 @@ When opening the home page you will have to discover the text by yourself using 
 
 ## Tech used
 
-the front end is made using html,css and javascript while the backend is made using python fastapi and also used the ipinfo api to get the ip of the device
+the front end is made using html,css and javascript while the backend is made using python fastapi deployed using railway and also used the ipinfo api to get the ip of the device
 
 ## API
 
