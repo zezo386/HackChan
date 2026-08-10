@@ -47,6 +47,7 @@ async function get_posts(){
         let request = await fetch(API_URL+"get_posts/");
         if (request){
             let data = await request.json();
+            document.getElementById("posts").innerHTML = '';
             for (let post of data){
                 post_div = document.createElement("div");
                 post_div.className = 'post';
@@ -73,6 +74,7 @@ async function upvote(id){
         let ip = await get_ip();
 
         let request = await fetch(API_URL+`toggle_upvote/?id=${id}&ip=${ip}`);
+        get_posts();
     }
     catch(e){
         console.log(e);
@@ -84,6 +86,7 @@ async function downvote(id){
         let ip = await get_ip();
 
         let request = await fetch(API_URL+`toggle_downvote/?id=${id}&ip=${ip}`);
+        get_posts();
     }
     catch(e){
         console.log(e);
@@ -111,13 +114,17 @@ async function new_post(){
         if (!request.ok){
             throw new Error(`HTTP error! status: ${request.status}`);
         }
+        get_posts();
     }
     catch(e){
         console.log(e);
     }
 }
 
-document.addEventListener("DOMContentLoaded", get_posts);
+document.addEventListener("DOMContentLoaded", ()=>{
+    get_posts();
+    setInterval(get_posts,5000);
+});
 
 document.getElementById("post-btn").addEventListener("click",new_post);
 
