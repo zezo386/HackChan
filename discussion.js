@@ -2,7 +2,7 @@ const API_URL = "https://hackchan3-production.up.railway.app/";
 
 async function get_ip(){
     try {
-        let request = await fetch("https://ipinfo.io/json");
+        let request = await fetch("https://ipapi.co/json");
         let data = await request.json();
         return data.ip;
     }
