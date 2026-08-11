@@ -44,7 +44,13 @@ the front end is made using html,css and javascript while the backend is made us
 
 ## API
 
-the api is made using python fastapi and stores the data using sqlite3
+this website uses 2 apis 
+
+ipapi.co/json
+
+to get the ip and the backend api
+
+the backend api is made using python fastapi and stores the data using sqlite3
 
 these are the endpoints
 
